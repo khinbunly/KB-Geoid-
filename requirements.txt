@@ -1,0 +1,13 @@
+# EGM2008 Geoid Telegram Bot Dependencies
+python-telegram-bot==22.8
+pyproj>=3.6.0
+geographiclib>=2.0
+pandas>=2.0.0
+openpyxl>=3.1.0
+numpy>=1.24.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+pytest>=8.0.0
+pytest-asyncio>=0.23.0

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  kb-geoid-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kb_geoid_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - APP_ENV=production
+      - LOG_LEVEL=INFO
+      - PROJ_NETWORK=true
+      - PROJ_CACHE_DIR=/app/.proj_cache
+    volumes:
+      - ./logs:/app/logs
+      - proj_cache:/app/.proj_cache
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  proj_cache:
+    driver: local
