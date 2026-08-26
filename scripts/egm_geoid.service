@@ -1,0 +1,22 @@
+[Unit]
+Description=KB-Geoid Telegram Bot Daemon
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/opt/KB-Geoid
+EnvironmentFile=/opt/KB-Geoid/.env
+ExecStart=/opt/KB-Geoid/.venv/bin/python app/main.py
+Restart=always
+RestartSec=5s
+
+# Security sandboxing
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=/opt/KB-Geoid/logs /opt/KB-Geoid/.proj_cache
+
+[Install]
+WantedBy=multi-user.target
