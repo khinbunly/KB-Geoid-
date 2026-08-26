@@ -40,13 +40,16 @@ COPY --from=builder --chown=appuser:appuser /root/.local /home/appuser/.local
 ENV PATH=/home/appuser/.local/bin:$PATH
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
+ENV PORT=7860
 
 # Copy application source code
 COPY --chown=appuser:appuser . .
 
 USER appuser
 
-HEALTHCHECK --interval=60s --timeout=10s --start-period=10s --retries=3 \
-  CMD python -c "import pyproj; from app.engine.geoid import geoid_engine; geoid_engine.get_undulation(-6.175, 106.827)" || exit 1
+EXPOSE 7860
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost:7860/ || exit 1
 
 CMD ["python", "app/main.py"]

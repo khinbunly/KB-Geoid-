@@ -1,3 +1,13 @@
+---
+title: KB Geoid Bot
+emoji: 🌐
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # 🌐 KB-Geoid: EGM2008 Geoid Undulation & MSL ↔ Ellipsoidal Height Telegram Bot
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
