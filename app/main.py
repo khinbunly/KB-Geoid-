@@ -121,6 +121,25 @@ def build_application() -> Application:
     return application
 
 
+
+def start_self_ping(url: str = "https://kb-geoid-bot-free.onrender.com", interval_sec: int = 600) -> None:
+    """Background thread to keep Render free tier awake 24/7."""
+    import time, requests
+
+    def _ping_loop():
+        time.sleep(20)
+        while True:
+            try:
+                requests.get(url, timeout=10)
+                logger.info(f"24/7 Self-ping to {url} sent.")
+            except Exception as e:
+                logger.debug(f"Self-ping error: {e}")
+            time.sleep(interval_sec)
+
+    t = threading.Thread(target=_ping_loop, daemon=True)
+    t.start()
+
+
 def main() -> None:
     """Main runner function."""
     logger.info("Starting KB-Geoid Telegram Bot...")
@@ -128,6 +147,7 @@ def main() -> None:
 
     # Start HTTP health server for cloud platforms (Hugging Face Spaces, Render, Koyeb)
     port = int(os.environ.get("PORT", "7860"))
+    start_self_ping()
     start_health_server(port)
 
     try:
