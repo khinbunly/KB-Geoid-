@@ -122,7 +122,7 @@ def build_application() -> Application:
 
 
 
-def start_self_ping(url: str = "https://kb-geoid-bot-free.onrender.com", interval_sec: int = 600) -> None:
+def start_self_ping(url: str = "https://kb-geoid-bot-free.onrender.com", interval_sec: int = 300) -> None:
     """Background thread to keep Render free tier awake 24/7."""
     import time, requests
 
